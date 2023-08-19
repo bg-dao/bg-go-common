@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"github.com/bg-dao/bg-go-common/log"
 	"github.com/bwmarrin/snowflake"
+	"github.com/bytedance/sonic"
 	"math/rand"
 	"net/url"
 	"reflect"
@@ -147,7 +148,7 @@ func ToJSONStr(val interface{}) string {
 		fmt.Printf("list:%#v\n", real)
 		return ""
 	}
-	data, err := json.Marshal(val)
+	data, err := sonic.Marshal(val)
 	if nil != err {
 		return fmt.Sprintf("%#v", val)
 	}
@@ -221,7 +222,7 @@ func JoinStringsInASCII(data map[string]interface{}, exceptKeys ...string) strin
 
 func ToMap(content interface{}) map[string]interface{} {
 	var name map[string]interface{}
-	if marshalContent, err := json.Marshal(content); err != nil {
+	if marshalContent, err := sonic.Marshal(content); err != nil {
 		fmt.Println(err)
 	} else {
 		d := json.NewDecoder(bytes.NewReader(marshalContent))

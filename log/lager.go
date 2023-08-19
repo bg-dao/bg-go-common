@@ -1,8 +1,8 @@
 package log
 
 import (
-	"encoding/json"
 	"github.com/bg-dao/bg-go-common/log/lager"
+	"github.com/bytedance/sonic"
 	"gopkg.in/yaml.v3"
 	"io/ioutil"
 	"log"
@@ -14,9 +14,9 @@ import (
 // constant values for logrotate parameters
 const (
 	RollingPolicySize = "size"
-	RotateDate     = 1
-	RotateSize  = 10
-	BackupCount = 7
+	RotateDate        = 1
+	RotateSize        = 10
+	BackupCount       = 7
 )
 
 // Lager struct for logger parameters
@@ -31,7 +31,7 @@ type Lager struct {
 	LogBackupCount int    `yaml:"log_backup_count"`
 }
 
-//PassLagerCfg is the struct for lager information(passlager.yaml)
+// PassLagerCfg is the struct for lager information(passlager.yaml)
 type PassLagerCfg struct {
 	Writers        string `yaml:"writers"`
 	LoggerLevel    string `yaml:"logger_level"`
@@ -197,6 +197,6 @@ func Init() error {
 }
 
 func marshalDefinition() string {
-	data, _ := json.Marshal(PassLagerDefinition)
+	data, _ := sonic.Marshal(PassLagerDefinition)
 	return string(data)
 }
